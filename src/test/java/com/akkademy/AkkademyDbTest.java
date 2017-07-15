@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.TestActorRef;
-import com.akkademy.messages.SetRequest;
+import com.akkademy.messages.VoteRequest;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -18,8 +18,8 @@ public class AkkademyDbTest {
     @Test
     public void itShouldPlaceKeyValueFromSetMessageIntoMap() {
         TestActorRef<AkkademyDb> actorRef = TestActorRef.create(system, Props.create(AkkademyDb.class));
-        actorRef.tell(new SetRequest("key", "value"), ActorRef.noSender());
+        actorRef.tell(new VoteRequest("blue", 5), ActorRef.noSender());
         AkkademyDb akkademyDb = actorRef.underlyingActor();
-        assertEquals(akkademyDb.map.get("key"), "value");
+        assertEquals((int) akkademyDb.map.get("blue"), 5);
     }
 }

@@ -4,7 +4,7 @@ import akka.actor.AbstractActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.japi.pf.ReceiveBuilder;
-import com.akkademy.messages.SetRequest;
+import com.akkademy.messages.VoteRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,12 +14,13 @@ import java.util.Map;
  */
 public class AkkademyDb extends AbstractActor {
     protected final LoggingAdapter log = Logging.getLogger(context().system(), this);
-    protected final Map<String, Object> map = new HashMap<>();
+    protected final Map<String, Integer> map = new HashMap<>();
 
     private AkkademyDb() {
-        receive(ReceiveBuilder.match(SetRequest.class, message -> {
-                    log.info("Received set request – key: {} value: {}", message.getKey(), message.getValue());
-                    map.put(message.getKey(), message.getValue());
+        // implement a vote actor receiving (color, score) pairs and returning overall result
+        receive(ReceiveBuilder.match(VoteRequest.class, message -> {
+                    log.info("Received vote request – key: {} score: {}", message.getKey(), message.getScore());
+                    map.put(message.getKey(), (Integer)(message.getScore()));
                 }).matchAny(o -> log.info("received unknown message {}", o)).build()
         );
     }

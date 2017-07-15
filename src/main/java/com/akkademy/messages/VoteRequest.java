@@ -3,20 +3,20 @@ package com.akkademy.messages;
 /**
  * Created by walid on 15/07/2017.
  */
-public class SetRequest {
+public class VoteRequest {
     private final String key;
-    private final Object value;
+    private final Integer score;
 
-    public SetRequest(String key, Object value) {
+    public VoteRequest(String key, Integer score) {
         this.key = key;
-        this.value = value;
+        this.score = score;
     }
 
     public String getKey() {
         return key;
     }
 
-    public Object getValue() {
-        return value;
+    public Object getScore() {
+        return score;
     }
 }
