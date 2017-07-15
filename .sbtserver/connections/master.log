@@ -1,0 +1,22 @@
+New log file opened at Sat Jul 15 22:03:00 AEST 2017 by 77301@WalidMac
+Taking next connection to: 60911
+New client attempting to connect on port: 60912-60911
+  Address = /192.168.1.5:60911
+This client on port 60912 has uuid c4a82d25-84a5-441c-9adf-ad5a78e0cd46 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-c4a82d25-84a5-441c-9adf-ad5a78e0cd46
+Taking next connection to: 60911
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 60911
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 60911
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 60911
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 60911
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 60911
