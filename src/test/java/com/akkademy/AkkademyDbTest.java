@@ -19,7 +19,9 @@ public class AkkademyDbTest {
     public void itShouldPlaceKeyValueFromSetMessageIntoMap() {
         TestActorRef<AkkademyDb> actorRef = TestActorRef.create(system, Props.create(AkkademyDb.class));
         actorRef.tell(new VoteRequest("blue", 5), ActorRef.noSender());
+        actorRef.tell(new VoteRequest("red", 1), ActorRef.noSender());
+        actorRef.tell(new VoteRequest("blue", 3), ActorRef.noSender());
         AkkademyDb akkademyDb = actorRef.underlyingActor();
-        assertEquals((int) akkademyDb.map.get("blue"), 5);
+        assertEquals((int) akkademyDb.map.get("blue"), 8);
     }
 }

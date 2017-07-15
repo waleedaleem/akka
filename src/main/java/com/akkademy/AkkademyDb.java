@@ -20,7 +20,8 @@ public class AkkademyDb extends AbstractActor {
         // implement a vote actor receiving (color, score) pairs and returning overall result
         receive(ReceiveBuilder.match(VoteRequest.class, message -> {
                     log.info("Received vote request – key: {} score: {}", message.getKey(), message.getScore());
-                    map.put(message.getKey(), (Integer)(message.getScore()));
+                    map.merge(message.getKey(), (Integer) (message.getScore()), Integer::sum);
+                    log.info("Overall vote results are: {} score: {}", message.getKey(), map.get(message.getKey()));
                 }).matchAny(o -> log.info("received unknown message {}", o)).build()
         );
     }
