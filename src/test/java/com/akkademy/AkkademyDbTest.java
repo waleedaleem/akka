@@ -37,17 +37,30 @@ public class AkkademyDbTest {
 
     @Test
     public void shouldReplyToPingWithPong() throws Exception {
-        Future sFuture = ask(actorRef, "Ping", 2000);
-        final CompletionStage<String> cs = toJava(sFuture);
+        final CompletionStage<String> cs = askPong("Ping");
         final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
-        assert (jFuture.get(2000, TimeUnit.MILLISECONDS).equals("Pong"));
+        assert (jFuture.get(1000, TimeUnit.MILLISECONDS).equals("Pong"));
     }
 
     @Test(expected = ExecutionException.class)
     public void shouldReplyToUnknownMessageWithFailure() throws Exception {
-        Future sFuture = ask(actorRef, "unknown", 2000);
-        final CompletionStage<String> cs = toJava(sFuture);
+        final CompletionStage<String> cs = askPong("Unknown");
         final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
-        jFuture.get(2000, TimeUnit.MILLISECONDS);
+        jFuture.get(1000, TimeUnit.MILLISECONDS);
+    }
+
+    @Test
+    public void printToConsole() throws Exception {
+        askPong("Ping").
+                // consume the return value x
+                thenAccept(x -> System.out.println("replied with: " + x));
+        // sleep to not miss on the asynchronous response and make sure the println runs.
+        Thread.sleep(100);
+    }
+
+    public CompletionStage<String> askPong(String message) {
+        Future sFuture = ask(actorRef, message, 1000);
+        CompletionStage<String> cs = toJava(sFuture);
+        return cs;
     }
 }
