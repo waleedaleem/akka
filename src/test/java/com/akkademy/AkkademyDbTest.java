@@ -51,9 +51,23 @@ public class AkkademyDbTest {
 
     @Test
     public void printToConsole() throws Exception {
-        askPong("Ping").
+        askPong("Ping")
                 // consume the return value x
-                thenAccept(x -> System.out.println("replied with: " + x));
+                .thenAccept(x -> System.out.println("replied with: " + x));
+        // sleep to not miss on the asynchronous response and make sure the println runs.
+        Thread.sleep(100);
+    }
+
+    @Test
+    public void composeAsynchoronously() throws Exception {
+        askPong("Ping")
+                // transform return value asynchronously
+                .thenCompose(x -> {
+                    System.out.println("replied with: " + x);
+                    return askPong("Ping" + x);
+                })
+                .thenAccept(x -> System.out.println("replied two asks with: " + x));
+
         // sleep to not miss on the asynchronous response and make sure the println runs.
         Thread.sleep(100);
     }
