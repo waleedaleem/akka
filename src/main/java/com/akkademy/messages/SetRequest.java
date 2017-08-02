@@ -13,4 +13,12 @@ public class SetRequest implements Serializable {
         this.key = key;
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "SetRequest{" +
+                "key='" + key + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }

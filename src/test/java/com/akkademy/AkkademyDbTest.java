@@ -74,7 +74,6 @@ public class AkkademyDbTest {
 
     public CompletionStage<String> askPong(String message) {
         Future sFuture = ask(actorRef, message, 1000);
-        CompletionStage<String> cs = toJava(sFuture);
-        return cs;
+        return toJava(sFuture);
     }
 }

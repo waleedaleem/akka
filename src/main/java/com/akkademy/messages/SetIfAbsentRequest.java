@@ -5,17 +5,20 @@ import java.io.Serializable;
 /**
  * Created by walid on 22/07/2017.
  */
-public class GetRequest implements Serializable {
+public class SetIfAbsentRequest implements Serializable {
     public final String key;
+    public final Object value;
 
-    public GetRequest(String key) {
+    public SetIfAbsentRequest(String key, Object value) {
         this.key = key;
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return "GetRequest{" +
+        return "SetIfAbsentRequest{" +
                 "key='" + key + '\'' +
+                ", value=" + value +
                 '}';
     }
 }

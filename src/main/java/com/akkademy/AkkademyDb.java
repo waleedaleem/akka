@@ -6,10 +6,7 @@ import akka.actor.Status;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.japi.pf.ReceiveBuilder;
-import com.akkademy.messages.GetRequest;
-import com.akkademy.messages.KeyNotFoundException;
-import com.akkademy.messages.SetRequest;
-import com.akkademy.messages.VoteRequest;
+import com.akkademy.messages.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +28,11 @@ public class AkkademyDb extends AbstractActor {
                 .match(SetRequest.class, message -> {
                     log.info("Received Set request: {}", message);
                     map.put(message.key, message.value);
+                    sender().tell(new Status.Success(message.key), self());
+                })
+                .match(SetIfAbsentRequest.class, message -> {
+                    log.info("Received SetIfAbsent request: {}", message);
+                    map.putIfAbsent(message.key, message.value);
                     sender().tell(new Status.Success(message.key), self());
                 })
                 .match(GetRequest.class, message -> {
